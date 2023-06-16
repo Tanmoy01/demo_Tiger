@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Shipment Booking</title>
+</head>
+<body>
+<h1>Shipment Booking</h1>
+
+<form th:action="@{/shipment-booking}" th:object="${shipment}" method="post">
+    <div>
+        <label>Customer Name:</label>
+        <input type="text" th:field="*{customerName}" required>
+    </div>
+    <div>
+        <label>Customer Address:</label>
+        <input type="text" th:field="*{customerAddress}" required>
+    </div>
+    <div>
+        <label>Consignment Weight (Kg):</label>
+        <input type="number" th:field="*{consignmentWeight}" required>
+    </div>
+    <div>
+        <label>Consignment Dimensions (L X B X H):</label>
+        <input type="text" th:field="*{consignmentDimensions}" required>
+    </div>
+    <div>
+        <label>Delivery Address:</label>
+        <input type="text" th:field="*{deliveryAddress}" required>
+    </div>
+    <div>
+        <button type="submit">Book Shipment</button>
+    </div>
+</form>
+
+<h2>Shipments</h2>
+<table>
+    <tr>
+        <th>Customer Name</th>
+        <th>Customer Address</th>
+        <th>Consignment Weight (Kg)</th>
+        <th>Consignment Dimensions (L X B X H)</th>
+        <th>Delivery Address</th>
+        <th>Actions</th>
+    </tr>
+    <tr th:each="shipment : ${shipments}">
+        <td th:text="${shipment.customerName}"></td>
+        <td th:text="${shipment.customerAddress}"></td>
+        <td th:text="${shipment.consignmentWeight}"></td>
+        <td th:text="${shipment.consignmentDimensions}"></td>
+        <td th:text="${shipment.deliveryAddress}"></td>
+        <td>
+            <a th:href="@{/shipment/delete/{id}(id=${shipment.id})}">Delete</a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
